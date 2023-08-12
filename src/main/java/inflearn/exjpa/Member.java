@@ -2,9 +2,16 @@ package inflearn.exjpa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 public class Member {
+
+  public Member(Long id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 
   public Long getId() {
     return id;

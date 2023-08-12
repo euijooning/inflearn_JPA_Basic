@@ -15,68 +15,40 @@ public class JpaMain {
     EntityTransaction tx = em.getTransaction();
     tx.begin();
 
-//    // 회원 등록
-//        try {
-//      Member member = new Member();
-//      member.setId(3L);
-//      member.setName("Danille");
-//      em.persist(member);
-//      tx.commit();
-//    } catch (Exception e) {
-//      tx.rollback();
-//    } finally {
-//      em.close();
-//    }
-//    emf.close();
-//  }
-
-
-//    // 조회
-//    try {
-//      Member findmember = em.find(Member.class, 1L); //민지찾기
-//      System.out.println("findMember.id = " + findmember.getId());
-//      System.out.println("findMember.name = " + findmember.getName());
-//      tx.commit();
-//    } catch (Exception e) {
-//      tx.rollback();
-//    } finally {
-//      em.close();
-//    }
-//    emf.close();
-//  }
-
-//    // 수정
-//    try {
-//      Member findmember = em.find(Member.class, 1L); //민지찾기
-//
-//      findmember.setName("Kimminji");
-//      // em.persist(findmember); ==> 이게 필요가 없다!!!
-//
-//      tx.commit();
-//    } catch (Exception e) {
-//      tx.rollback();
-//    } finally {
-//      em.close();
-//    }
-//    emf.close();
-
     try {
-    // JPQL
-    List<Member> result = em.createQuery("select m from Member as m", Member.class)
-        .setFirstResult(5) //페이징 처리에 도움  시작위치
-        .setMaxResults(10) //가져올 결과의 개수
-        .getResultList();
+      //비영속
+//      Member member = new Member();
+////      member.setId(100L);
+//      member.setId(101L);
+//      member.setName("Haerin");
 
-    /*
-    그런데 JPA에서는 테이블을 대상으로 절대 쿼리를 짜지 않는다.
-    => 즉, 위의 쿼리문은 테이블이 대상이 아니라, 객체가 대상인 것이다.
-     */
+      //영속
+//      System.out.println("BEFORE================");
+////      em.persist(member); //그런데 이 때 DB에 저장되는 건 아니다.
+//      em.persist(member);
+//      System.out.println("AFTER================");
 
-    for (Member member : result) { //iter 누르면 자동 생성 ㅋ
-      System.out.println("member.name = " + member.getName()); // soutv 누르면 형식 자동 생성 ㅋ
-    }
+//      Member findMember = em.find(Member.class, 101L);
+//      System.out.println("findMember.id = " + findMember.getId());
+//      System.out.println("findMember.name = " + findMember.getName());
+//      Member findMember1 = em.find(Member.class, 101L);
+//      Member findMember2 = em.find(Member.class, 101L);
+//
+//      System.out.println("result = " + (findMember1 == findMember2));
+
+// 롬복 의존성 추가 후 생성자 Member 클래스에 만들어놓고
+//      Member member1 = new Member(150L, "A");
+//      Member member2 = new Member(160L, "B");
+//
+//      em.persist(member1);
+//      em.persist(member2); // 여기까지 영속성 컨텍스트에 쌓임
+//      System.out.println("==========쿼리 나가는 거 구분선==========");
+
+      Member member = em.find(Member.class, 150L); // 현재 이름은 A
+      member.setName("ZZZAAA");
+
+      System.out.println("===================");
       tx.commit();
-
     } catch (Exception e) {
       tx.rollback();
     } finally {
