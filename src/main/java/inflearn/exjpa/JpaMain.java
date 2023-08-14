@@ -44,8 +44,18 @@ public class JpaMain {
 //      em.persist(member2); // 여기까지 영속성 컨텍스트에 쌓임
 //      System.out.println("==========쿼리 나가는 거 구분선==========");
 
-      Member member = em.find(Member.class, 150L); // 현재 이름은 A
-      member.setName("ZZZAAA");
+//      Member member = em.find(Member.class, 150L); // 현재 이름은 A
+//      member.setName("ZZZAAA");
+
+//      Member member = new Member(200L, "member200");
+//      em.persist(member);
+//      //미리 보고싶으면
+//      em.flush();//강제로 호출
+
+      //영속 상태
+      Member member = em.find(Member.class, 150L);
+      member.setName("AAAAA");
+      em.detach(member); // 준영속 상태로 만듦
 
       System.out.println("===================");
       tx.commit();
