@@ -15,15 +15,13 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Member member = new Member(); // id 값은 자동으로 생성됩니다.
-      member.setUsername("A");
+      Member member = new Member();
+      member.setUsername("C");
 
+      System.out.println("======================");
       em.persist(member);
-//
-//      Member member2 = new Member();
-//      member2.setUsername("D");
-//
-//      em.persist(member2);
+      System.out.println("member.id = " +member.getId());
+      System.out.println("======================");
 
       tx.commit();
     } catch (Exception e) {
