@@ -1,5 +1,6 @@
 package inflearn.exjpa;
 
 public enum RoleType {
-  ADMIN, USER
+  GUEST, USER, BEST_USER, ADMIN
+
 }
