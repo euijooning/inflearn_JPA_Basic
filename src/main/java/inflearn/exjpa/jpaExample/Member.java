@@ -1,4 +1,4 @@
-package inflearn.exjpa;
+package inflearn.exjpa.jpaExample;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
