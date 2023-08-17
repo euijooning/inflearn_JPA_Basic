@@ -48,7 +48,23 @@ public class Member {
     return team;
   }
 
-  public void setTeam(Team team) {
+//  public void setTeam(Team team) {
+//    this.team = team;
+//    team.getMembers().add(this);
+//  }
+
+  // set 대신에 새롭게
+    public void changeTeam(Team team) {
     this.team = team;
+    team.getMembers().add(this);
   }
+
+//  @Override
+//  public String toString() {
+//    return "Member{" +
+//        "id=" + id +
+//        ", username='" + username + '\'' +
+//        ", team=" + team +
+//        '}';
+//  } // stackovarflow 나옴.
 }
