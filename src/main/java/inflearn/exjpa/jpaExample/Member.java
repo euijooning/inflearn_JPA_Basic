@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.TableGenerator;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -21,11 +19,7 @@ public class Member {
   private Long id;
 
   @Column(name = "USERNAME")
-  private String nane;
-
-//  @Column(name = "TEAM_ID")
-//  private Long teamId;
-//  //멤버와 팀을 레퍼런스로 가져가야 하는데 지금은 그냥 DB에 맞춰서 모델링을 한 것.
+  private String username;
 
   @ManyToOne
   @JoinColumn(name = "TEAM_ID")
@@ -42,12 +36,12 @@ public class Member {
     this.id = id;
   }
 
-  public String getNane() {
-    return nane;
+  public String getUsername() {
+    return username;
   }
 
-  public void setNane(String nane) {
-    this.nane = nane;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public Team getTeam() {
