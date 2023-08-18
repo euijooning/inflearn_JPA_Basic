@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -19,8 +19,8 @@ public class Product {
   private String name;
 
   // 양방향으로 만들고 싶으면
-  @ManyToMany(mappedBy = "products")
-  private List<Member> members = new ArrayList<>();
+  @OneToMany(mappedBy = "product")
+  private List<MemberProduct> memberProducts = new ArrayList<>();
 
   public Long getId() {
     return id;

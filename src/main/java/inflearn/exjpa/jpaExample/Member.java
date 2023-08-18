@@ -36,9 +36,8 @@ public class Member {
   @JoinColumn(name = "LOCKER_ID")
   private Locker locker;
 
-  @ManyToMany
-  @JoinTable(name = "MEMBER_PRODUCT")// 테이블명 적어줘야
-  private List<Product> products = new ArrayList<>();
+  @OneToMany(mappedBy = "member")
+  private List<MemberProduct> memberProducts = new ArrayList<>();
 
   public Long getId() {
     return id;
