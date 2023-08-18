@@ -16,29 +16,23 @@ public class JpaMain {
     tx.begin();
 
     try {
-      // 순서도 조금 바꿔서
-      Team team = new Team();
-      team.setName("TeamA");
-      em.persist(team);
-
       Member member = new Member();
       member.setUsername("member1");
-      member.changeTeam(team);
+
       em.persist(member);
+      //여기까지 하면 멤버가 저장
 
-//      team.getMembers().add(member); 이거를 가져다가
+      Team team = new Team();
+      team.setName("TeamA");
+      // 여기까지 팀 테이블에 인서트
 
-      em.flush();
-      em.clear();
+      // 얘가 좀 애매함.
+      // 팀 테이블에 인서트 될 수 있는 상황이 아님.
+      // 이 외래키는 MEMBER 테이블에 있음.
+      // 그럼 MEMBER 테이블에 있는 TEAM_ID(FK)를 업데이트 쳐줘야 함.)
+      team.getMembers().add(member);
 
-      // 더 안전하게, 양쪽에 다 값을 세팅
-      Team findTeam = em.find(Team.class, team.getId());
-      List<Member> members = findTeam.getMembers();
-      for (Member m : members) {
-        System.out.println("m = " + m.getUsername());
-      }
-      // 이렇게 해도(현재 리스트에 값을 세팅한 게 없어도) 값이 출력이 된다.
-      // jpa에서 select 쿼리를멤버를 조회하면서 한번 더 보냄.
+      em.persist(team);
 
       tx.commit();
     } catch (Exception e) {

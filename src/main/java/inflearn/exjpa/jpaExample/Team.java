@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 
@@ -19,10 +20,10 @@ public class Team {
 
   private String name;
 
-  // 양방향으로 만들기 위해 추가할 것
-  @OneToMany(mappedBy = "team")
+  // 여기가 이제 연관관계를 관맇라기 위해 추가
+  @OneToMany
+//  @JoinColumn(name = "TEAM_ID")
   private List<Member> members = new ArrayList<>();
-
 
   public Long getId() {
     return id;
@@ -38,5 +39,13 @@ public class Team {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public List<Member> getMembers() {
+    return members;
+  }
+
+  public void setMembers(List<Member> members) {
+    this.members = members;
   }
 }

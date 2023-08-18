@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -18,13 +19,13 @@ public class Member {
   @Column(name = "MEMBER_ID")
   private Long id;
 
-  @Column(name = "USERNAME")
-  private String username;
-
+  //양방향 추가(역방향)
   @ManyToOne
-  @JoinColumn(name = "TEAM_ID")
+  @JoinColumn(name = "TEAM_ID",insertable = false, updatable = false) // 읽기 전용화 
   private Team team;
 
+  @Column(name = "USERNAME")
+  private String username;
 
   public Long getId() {
     return id;
@@ -40,10 +41,6 @@ public class Member {
 
   public void setUsername(String username) {
     this.username = username;
-  }
-
-  public Team getTeam() {
-    return team;
   }
 
 }
