@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -26,6 +27,10 @@ public class Member {
 
   @Column(name = "USERNAME")
   private String username;
+
+  @OneToOne
+  @JoinColumn(name = "LOCKER_ID")
+  private Locker locker;
 
   public Long getId() {
     return id;
