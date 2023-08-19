@@ -1,6 +1,7 @@
 package inflearn.exjpa.jpaExample;
 
 
+import inflearn.exjpa.jpaExample.item.Item;
 import inflearn.exjpa.jpaExample.item.Movie;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -29,8 +30,11 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-      Movie findMovie = em.find(Movie.class, movie.getId());
-      System.out.println("findMovie = "+ findMovie);
+//      Movie findMovie = em.find(Movie.class, movie.getId());
+//      System.out.println("findMovie = "+ findMovie);
+
+      Item findItem = em.find(Item.class, movie.getId());
+      System.out.println("item = " + findItem);
 
       tx.commit();
     } catch (Exception e) {

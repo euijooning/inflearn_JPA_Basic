@@ -8,9 +8,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn
-public class Item {
+public abstract class Item { //원래 abstract class로 만들었어야 한다.
 
   @Id
   @GeneratedValue
