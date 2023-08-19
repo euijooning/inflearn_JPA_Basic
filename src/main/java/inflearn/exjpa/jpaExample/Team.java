@@ -26,11 +26,6 @@ public class Team extends BaseEntity {
 //  @JoinColumn(name = "TEAM_ID")
   private List<Member> members = new ArrayList<>();
 
-//  private String createdBy;
-//  private LocalDateTime createdDate;
-//  private String lastModifiedBy;
-//  private LocalDateTime lastModifiedDate;
-
   public Long getId() {
     return id;
   }
