@@ -1,6 +1,7 @@
 package inflearn.exjpa.jpaExample;
 
 
+import inflearn.exjpa.jpaExample.item.Movie;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,23 +17,20 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Member member = new Member();
-      member.setUsername("member1");
+      Movie movie = new Movie();
+      movie.setDirector("김AB");
+      movie.setActor("한BC");
+      movie.setName("무빙");
+      movie.setPrice(10000);
 
-      em.persist(member);
-      //여기까지 하면 멤버가 저장
+      em.persist(movie);
 
-      Team team = new Team();
-      team.setName("TeamA");
-      // 여기까지 팀 테이블에 인서트
+      //조회해보기 - 먼저 1차캐시 날리기
+      em.flush();
+      em.clear();
 
-      // 얘가 좀 애매함.
-      // 팀 테이블에 인서트 될 수 있는 상황이 아님.
-      // 이 외래키는 MEMBER 테이블에 있음.
-      // 그럼 MEMBER 테이블에 있는 TEAM_ID(FK)를 업데이트 쳐줘야 함.)
-      team.getMembers().add(member);
-
-      em.persist(team);
+      Movie findMovie = em.find(Movie.class, movie.getId());
+      System.out.println("findMovie = "+ findMovie);
 
       tx.commit();
     } catch (Exception e) {
