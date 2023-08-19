@@ -1,9 +1,7 @@
 package inflearn.exjpa.jpaExample;
 
 
-import inflearn.exjpa.jpaExample.item.Item;
-import inflearn.exjpa.jpaExample.item.Movie;
-import java.util.List;
+import java.time.LocalDateTime;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -18,23 +16,12 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Movie movie = new Movie();
-      movie.setDirector("김AB");
-      movie.setActor("한BC");
-      movie.setName("무빙");
-      movie.setPrice(10000);
+      Member member = new Member();
+      member.setUsername("user1");
+      member.setCreatedBy("kim");
+      member.setCreatedDate(LocalDateTime.now());
 
-      em.persist(movie);
-
-      //조회해보기 - 먼저 1차캐시 날리기
-      em.flush();
-      em.clear();
-
-//      Movie findMovie = em.find(Movie.class, movie.getId());
-//      System.out.println("findMovie = "+ findMovie);
-
-      Item findItem = em.find(Item.class, movie.getId());
-      System.out.println("item = " + findItem);
+      em.persist(member);
 
       tx.commit();
     } catch (Exception e) {

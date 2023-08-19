@@ -6,12 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import lombok.NoArgsConstructor;
 
 
 @Entity
-public class Team {
+@NoArgsConstructor
+public class Team extends BaseEntity {
 
   @Id
   @GeneratedValue
@@ -24,6 +25,11 @@ public class Team {
   @OneToMany
 //  @JoinColumn(name = "TEAM_ID")
   private List<Member> members = new ArrayList<>();
+
+//  private String createdBy;
+//  private LocalDateTime createdDate;
+//  private String lastModifiedBy;
+//  private LocalDateTime lastModifiedDate;
 
   public Long getId() {
     return id;

@@ -1,5 +1,6 @@
 package inflearn.exjpa.jpaExample;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,6 +39,11 @@ public class Member {
 
   @OneToMany(mappedBy = "member")
   private List<MemberProduct> memberProducts = new ArrayList<>();
+
+//  private String createdBy;
+//  private LocalDateTime createdDate;
+//  private String lastModifiedBy;
+//  private LocalDateTime lastModifiedDate;
 
   public Long getId() {
     return id;
