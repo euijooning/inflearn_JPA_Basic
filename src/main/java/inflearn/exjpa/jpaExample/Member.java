@@ -1,43 +1,41 @@
 package inflearn.exjpa.jpaExample;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
-public class Member extends BaseEntity {
+public class Member {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue
   @Column(name = "MEMBER_ID")
   private Long id;
-
-  //양방향 추가(역방향)
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "TEAM_ID")
-  private Team team;
 
   @Column(name = "USERNAME")
   private String username;
 
+  //기간 묶기 Period
+  @Embedded
+  private Period workPeriod;
 
-  @OneToMany(mappedBy = "member")
-  private List<MemberProduct> memberProducts = new ArrayList<>();
+  // 주소 묶기 Address
+  @Embedded
+  private Address homeAddress;
 
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name = "city", column = @Column(name = "WORK_CITY")),
+      @AttributeOverride(name = "street", column = @Column(name = "WORK_STREET")),
+      @AttributeOverride(name = "zipcode", column = @Column(name = "WORK_ZIPCODE"))
+  })
+  private Address workAddress;
 
   public Long getId() {
     return id;
@@ -55,11 +53,19 @@ public class Member extends BaseEntity {
     this.username = username;
   }
 
-  public Team getTeam() {
-    return team;
+  public Period getWorkPeriod() {
+    return workPeriod;
   }
 
-  public void setTeam(Team team) {
-    this.team = team;
+  public void setWorkPeriod(Period workPeriod) {
+    this.workPeriod = workPeriod;
+  }
+
+  public Address getHomeAddress() {
+    return homeAddress;
+  }
+
+  public void setHomeAddress(Address homeAddress) {
+    this.homeAddress = homeAddress;
   }
 }

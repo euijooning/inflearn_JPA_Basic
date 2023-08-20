@@ -14,22 +14,17 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Child child1 = new Child();
-      Child child2 = new Child();
 
-      Parent parent = new Parent();
-      parent.addChild(child1);
-      parent.addChild(child2);
-
-      em.persist(parent);
-
-      em.flush();
-      em.clear();
+      Member member = new Member();
+      member.setUsername("minji");
+      member.setHomeAddress(new Address("seoul","street1","10000"));
+      member.setWorkPeriod(new Period()); //여기 안에도 값을 넣으면 됨.
+      em.persist(member);
 
       tx.commit();
     } catch (Exception e) {
       tx.rollback();
-      e.printStackTrace(); // 하나 찍어봄
+      e.printStackTrace();
     } finally {
       em.close();
     }
