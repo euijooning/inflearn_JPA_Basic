@@ -22,9 +22,12 @@ public class JpaMain {
       parent.addChild(child2);
 
       em.persist(parent);
-      // CASCADE 옵션 집어넣고 아래 두 개는 지운다.
-//      em.persist(child1);
-//      em.persist(child2);
+
+      em.flush();
+      em.clear();
+
+      Parent findParent = em.find(Parent.class, parent.getId());
+      findParent.getChildList().remove(0); // 첫 번째 것 지움
 
       tx.commit();
     } catch (Exception e) {
