@@ -19,7 +19,7 @@ public class Parent {
 
   private String name;
 
-  @OneToMany(mappedBy = "parent",cascade = CascadeType.ALL, orphanRemoval = true) // 양방향 매핑 완료, CASCADE옵션 추가, 고아객체 제거
+  @OneToMany(mappedBy = "parent", orphanRemoval = true) // CASCADE옵션 제거함
   private List<Child> childList = new ArrayList<>();
 
   public Long getId() {
