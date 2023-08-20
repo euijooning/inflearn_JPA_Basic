@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +27,8 @@ public class Member extends BaseEntity {
   private Long id;
 
   //양방향 추가(역방향)
-  @ManyToOne
-  @JoinColumn(name = "TEAM_ID",insertable = false, updatable = false) // 읽기 전용화 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "TEAM_ID")
   private Team team;
 
   @Column(name = "USERNAME")
