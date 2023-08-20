@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import org.hibernate.Hibernate;
 
 public class JpaMain {
   public static void main(String[] args) {
@@ -32,7 +31,8 @@ public class JpaMain {
       System.out.println("m = " + m.getTeam().getClass());
 
       System.out.println("이전===================");
-      m.getTeam().getName(); // 쿼리 나가는 시점
+//      m.getTeam().getName(); // 쿼리 나가는 시점(초기화) => 여기서는 필요x
+      System.out.println("teamName = " + m.getTeam().getName()); // 실제 팀이름 teamA가 출력됨.
       System.out.println("이후===================");
 
       tx.commit();

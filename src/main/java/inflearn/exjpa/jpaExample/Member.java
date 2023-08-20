@@ -27,7 +27,7 @@ public class Member extends BaseEntity {
   private Long id;
 
   //양방향 추가(역방향)
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "TEAM_ID")
   private Team team;
 
