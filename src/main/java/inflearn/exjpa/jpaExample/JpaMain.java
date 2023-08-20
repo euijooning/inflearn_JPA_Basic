@@ -14,12 +14,25 @@ public class JpaMain {
     tx.begin();
 
     try {
+      Address address = new Address("seoul", "street", "10000");
+      // 현재 member1과 member2는 같은 address를 쓰고 있다.
 
-      Member member = new Member();
-      member.setUsername("minji");
-      member.setHomeAddress(new Address("seoul","street1","10000"));
-      member.setWorkPeriod(new Period()); //여기 안에도 값을 넣으면 됨.
-      em.persist(member);
+      Member memberA = new Member();
+      memberA.setUsername("member1");
+      memberA.setHomeAddress(address);
+      em.persist(memberA);
+
+      //해결책
+      Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+
+      Member memberB = new Member();
+      memberB.setUsername("member2");
+      memberB.setHomeAddress(copyAddress); // 여기 copyAddress 대입.
+      em.persist(memberB);
+
+      // 변경 (의도: 첫번째 멤버 것만 바꾸고 싶음)
+      memberA.getHomeAddress().setCity("newCity");
+      // 이 때는 제대로 첫 번째 아이만 변경됨.
 
       tx.commit();
     } catch (Exception e) {
