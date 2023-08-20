@@ -27,13 +27,10 @@ public class JpaMain {
       em.flush();
       em.clear();
 
-      Member m = em.find(Member.class, member1.getId());
-      System.out.println("m = " + m.getTeam().getClass());
+//      Member m = em.find(Member.class, member1.getId());
+      em.createQuery("select m from Member m", Member.class)
+              .getResultList();
 
-      System.out.println("이전===================");
-//      m.getTeam().getName(); // 쿼리 나가는 시점(초기화) => 여기서는 필요x
-      System.out.println("teamName = " + m.getTeam().getName()); // 실제 팀이름 teamA가 출력됨.
-      System.out.println("이후===================");
 
       tx.commit();
     } catch (Exception e) {
