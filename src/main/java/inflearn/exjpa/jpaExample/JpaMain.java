@@ -18,16 +18,16 @@ public class JpaMain {
       // 현재 member1과 member2는 같은 address를 쓰고 있다.
 
       Member memberA = new Member();
-      memberA.setUsername("member1");
-      memberA.setHomeAddress(address);
+//      memberA.setUsername("member1");
+//      memberA.setHomeAddress(address);
       em.persist(memberA);
 
       //해결책
       Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
 
       Member memberB = new Member();
-      memberB.setUsername("member2");
-      memberB.setHomeAddress(copyAddress); // 여기 copyAddress 대입.
+//      memberB.setUsername("member2");
+//      memberB.setHomeAddress(copyAddress); // 여기 copyAddress 대입.
       em.persist(memberB);
 
       // 변경 (의도: 첫번째 멤버 것만 바꾸고 싶음)
