@@ -14,21 +14,20 @@ public class JpaMain {
     tx.begin();
 
     try {
-      Address address = new Address("seoul", "street", "10000");
-      // 현재 member1과 member2는 같은 address를 쓰고 있다.
 
-      Member memberA = new Member();
-//      memberA.setUsername("member1");
-//      memberA.setHomeAddress(address);
-      em.persist(memberA);
+      Member member = new Member();
+      member.setUsername("member1");
+      member.setHomeAddress(new Address("homeCity", "street", "10000")); //Member 테이블에 값들이 들어갈 거예요.
 
-      //해결책
-      Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+      // 이 FAVORITEFOODS 컬렉션에 세 가지가 들어간다.
+      member.getFavoriteFoods().add("치킨");
+      member.getFavoriteFoods().add("족발");
+      member.getFavoriteFoods().add("피자");
 
-      Member memberB = new Member();
-//      memberB.setUsername("member2");
-//      memberB.setHomeAddress(copyAddress); // 여기 copyAddress 대입.
-      em.persist(memberB);
+      member.getAddressHistory().add(new Address("oldCity1", "street", "10000"));
+      member.getAddressHistory().add(new Address("oldCity2", "street", "10000"));
+
+      em.persist(member); // 저장
 
 
       tx.commit();
