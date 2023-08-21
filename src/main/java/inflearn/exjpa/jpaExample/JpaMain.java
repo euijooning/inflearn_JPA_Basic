@@ -37,16 +37,26 @@ public class JpaMain {
       System.out.println("============START============");
       Member findMember = em.find(Member.class, member.getId());
 
-      // 추가한 부분, 이제서야 쿼리 나갈 것이다.
-      List<Address> addresssHistory = findMember.getAddressHistory();
-      for (Address address : addresssHistory) { // iter 라고만 쓰면 알아서 향상된 for문 나옴.
-        System.out.println("address = " + address.getCity());
-      }
+      // iter지우고 수정 예제
+      //이렇게 하면 일단 안 된다. sideEffect 발생
+//      findMember.getHomeAddress().setCity("newCity");
 
-      Set<String> favoriteFoods = findMember.getFavoriteFoods();
-      for (String favoriteFood : favoriteFoods) {
-        System.out.println("favoriteFood = " + favoriteFood);
-      }
+      // 답은, 아예 새로 넣기다.(통으로 값 타입을 갈아끼운다. 완전한 교체
+      // 도시명만 바꾸고 나머지는 그대로 하고싶다고 가정.
+      Address origin = findMember.getHomeAddress();
+      findMember.setHomeAddress(new Address("newCity", origin.getStreet(), origin.getZipcode()));
+
+      // 이제 값 타입 컬렉션 업데이트
+      // 컬렉션 내의 치킨 => 힌식으로 변경
+      findMember.getFavoriteFoods().remove("치킨");
+      findMember.getFavoriteFoods().add("한식");
+
+      // 이제 주소 바꾸기 , 값 타입 인스턴스를 통으로 갈아끼워야한다는 것 명심.
+      // 컬렉션들은 값을 찾을 때 equals()로 찾느다.
+      findMember.getAddressHistory().remove(new Address("oldCity1", "street", "10000"));
+      // equals And hashcode 앞서 구현해놓았기 때문에 사용 가능
+      // 그리고 add도 해주기
+      findMember.getAddressHistory().add(new Address("newCity1", "street", "10000"));
 
       tx.commit();
     } catch (Exception e) {
