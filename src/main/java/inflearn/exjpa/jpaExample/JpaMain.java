@@ -1,5 +1,7 @@
 package inflearn.exjpa.jpaExample;
 
+import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -29,6 +31,22 @@ public class JpaMain {
 
       em.persist(member); // 저장
 
+      em.flush();
+      em.clear();
+
+      System.out.println("============START============");
+      Member findMember = em.find(Member.class, member.getId());
+
+      // 추가한 부분, 이제서야 쿼리 나갈 것이다.
+      List<Address> addresssHistory = findMember.getAddressHistory();
+      for (Address address : addresssHistory) { // iter 라고만 쓰면 알아서 향상된 for문 나옴.
+        System.out.println("address = " + address.getCity());
+      }
+
+      Set<String> favoriteFoods = findMember.getFavoriteFoods();
+      for (String favoriteFood : favoriteFoods) {
+        System.out.println("favoriteFood = " + favoriteFood);
+      }
 
       tx.commit();
     } catch (Exception e) {
