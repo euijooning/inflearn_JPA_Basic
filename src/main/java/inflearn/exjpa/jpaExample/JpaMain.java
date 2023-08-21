@@ -30,9 +30,6 @@ public class JpaMain {
 //      memberB.setHomeAddress(copyAddress); // 여기 copyAddress 대입.
       em.persist(memberB);
 
-      // 변경 (의도: 첫번째 멤버 것만 바꾸고 싶음)
-      memberA.getHomeAddress().setCity("newCity");
-      // 이 때는 제대로 첫 번째 아이만 변경됨.
 
       tx.commit();
     } catch (Exception e) {
